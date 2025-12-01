@@ -54,7 +54,7 @@ class _CategoriesListState extends State<CategoriesList> {
   }
 
   // callback function to change the selected index
-  onItemClick(int index) {
+  void onItemClick(int index) {
     setState(() {
       selectedIndex = index;
     });
