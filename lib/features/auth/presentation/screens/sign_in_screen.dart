@@ -140,12 +140,14 @@ class _SignInScreenState extends State<SignInScreen> {
                         textStyle: getBoldStyle(
                             color: ColorManager.primary, fontSize: AppSize.s18),
                         onTap: () {
-                          context.read<LoginCubitCubit>().login(
-                                request: Login_request(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                ),
-                              );
+                          Navigator.pushReplacementNamed(
+                              context, Routes.mainRoute);
+                          // context.read<LoginCubitCubit>().login(
+                          //       request: Login_request(
+                          //         email: emailController.text,
+                          //         password: passwordController.text,
+                          //       ),
+                          //     );
                         },
                       ),
                     ),

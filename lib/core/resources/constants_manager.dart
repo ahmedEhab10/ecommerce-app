@@ -61,7 +61,7 @@ abstract class ApiConstants {
   static const String baseUrl = 'https://ecommerce.routemisr.com/api/v1/';
   static const String register = 'auth/signup';
   static const String login = 'auth/signin';
-
+  static const String category = 'categories';
   static const String products = 'products';
 }
 
