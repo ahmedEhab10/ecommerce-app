@@ -3,6 +3,8 @@ import 'package:ecommerce_app/core/routes_manager/routes.dart';
 import 'package:ecommerce_app/features/auth/data/data_sources/local/auth_shared_prefs_local_data_source.dart';
 import 'package:ecommerce_app/features/auth/data/data_sources/remote/authapiremotdatasource.dart';
 import 'package:ecommerce_app/features/auth/data/repositories_impl/auth_repositories_impl.dart';
+import 'package:ecommerce_app/features/auth/domain/use_case/login_use_case.dart';
+import 'package:ecommerce_app/features/auth/domain/use_case/register_use_case.dart';
 import 'package:ecommerce_app/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/cubit/login_cubit/login_cubit_cubit.dart';
 import 'package:flutter/material.dart';
@@ -14,16 +16,19 @@ void main() {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthCubit(
-              authRepositories: AuthRepositoriesImpl(
-                  authRemoteDataSource: Authapiremotdatasource(),
-                  authLocalDataSource: AuthSharedPrefsLocalDataSource())),
-        ),
+            create: (context) => AuthCubit(
+                registerUseCase: RegisterUseCase(
+                    authRepository: AuthRepositoriesImpl(
+                        authRemoteDataSource: Authapiremotdatasource(),
+                        authLocalDataSource:
+                            AuthSharedPrefsLocalDataSource())))),
         BlocProvider(
             create: (context) => LoginCubitCubit(
-                authRepositories: AuthRepositoriesImpl(
-                    authRemoteDataSource: Authapiremotdatasource(),
-                    authLocalDataSource: AuthSharedPrefsLocalDataSource()))),
+                loginUseCase: LoginUseCase(
+                    authRepository: AuthRepositoriesImpl(
+                        authRemoteDataSource: Authapiremotdatasource(),
+                        authLocalDataSource:
+                            AuthSharedPrefsLocalDataSource())))),
       ],
       child: MainApp(),
     ),

@@ -7,6 +7,7 @@ import 'package:ecommerce_app/features/auth/data/Models/register_request.dart';
 import 'package:ecommerce_app/features/auth/data/Models/register_resspons.dart';
 import 'package:ecommerce_app/features/auth/data/data_sources/local/auth_local_data_source.dart';
 import 'package:ecommerce_app/features/auth/data/data_sources/remote/authremotedatasource.dart';
+import 'package:ecommerce_app/features/auth/domain/Entities/User_Entitiy.dart';
 import 'package:ecommerce_app/features/auth/domain/repositories/auth_repositories.dart';
 
 class AuthRepositoriesImpl extends AuthRepositories {
@@ -16,23 +17,23 @@ class AuthRepositoriesImpl extends AuthRepositories {
   AuthLocalDataSource authLocalDataSource;
 
   @override
-  Future<Either<String, User>> register(
+  Future<Either<String, UserEntity>> register(
       {required RegisterRequest request}) async {
     try {
       final response = await authRemoteDataSource.register(request);
       authLocalDataSource.saveToken(response.token);
-      return Right(response.user);
+      return Right(response.user.toEntity());
     } on AppException catch (e) {
       return Left(e.message);
     }
   }
 
   @override
-  Future<Either<String, User>> login(Login_request request) async {
+  Future<Either<String, UserEntity>> login(Login_request request) async {
     try {
       final response = await authRemoteDataSource.login(request);
       await authLocalDataSource.saveToken(response.token);
-      return Right(response.user);
+      return Right(response.user.toEntity());
     } on AppException catch (e) {
       return Left(e.toString());
     }

@@ -5,8 +5,10 @@ import 'package:ecommerce_app/features/auth/data/Models/User.dart';
 
 import 'package:ecommerce_app/features/auth/data/Models/register_request.dart';
 import 'package:ecommerce_app/features/auth/data/Models/register_resspons.dart';
+import 'package:ecommerce_app/features/auth/domain/Entities/User_Entitiy.dart';
 
 abstract class AuthRepositories {
-  Future<Either<String, User>> register({required RegisterRequest request});
-  Future<Either<String, User>> login(Login_request request);
+  Future<Either<String, UserEntity>> register(
+      {required RegisterRequest request});
+  Future<Either<String, UserEntity>> login(Login_request request);
 }
