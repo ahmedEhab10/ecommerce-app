@@ -1,10 +1,11 @@
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
+import 'package:ecommerce_app/features/main_layout/home/domain/Entities/Brand_Entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBrandWidget extends StatelessWidget {
-  const CustomBrandWidget({super.key});
-
+  const CustomBrandWidget({super.key, required this.brandEntity});
+  final BrandEntity brandEntity;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,8 +18,8 @@ class CustomBrandWidget extends StatelessWidget {
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
-            child: Image.asset(
-              ImageAssets.brandHomeImage,
+            child: Image.network(
+              brandEntity.image,
               fit: BoxFit.scaleDown,
             ),
           ),
