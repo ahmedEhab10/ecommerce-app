@@ -5,6 +5,7 @@ import 'package:ecommerce_app/features/main_layout/categories/presentation/categ
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/favourite_screen.dart';
 import 'package:ecommerce_app/features/main_layout/profile_tab/presentation/profile_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'home/presentation/home_tab.dart';
 
@@ -33,7 +34,7 @@ class _MainLayoutState extends State<MainLayout> {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(15), topRight: Radius.circular(15)),
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.1,
+          height: MediaQuery.of(context).size.height * 0.11,
           child: BottomNavigationBar(
             currentIndex: currentIndex,
             onTap: (value) => changeSelectedIndex(value),
@@ -45,6 +46,7 @@ class _MainLayoutState extends State<MainLayout> {
             showUnselectedLabels: false, // Hide unselected item labels
             items: [
               // Build BottomNavigationBarItem widgets for each tab
+
               CustomBottomNavBarItem(IconsAssets.icHome, "Home"),
               CustomBottomNavBarItem(IconsAssets.icCategory, "Category"),
               CustomBottomNavBarItem(IconsAssets.icWithList, "WishList"),

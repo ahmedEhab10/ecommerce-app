@@ -10,6 +10,7 @@ import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/cubit
 import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/cubit/catogry_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/widgets/custom_brand_widget.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/widgets/custom_category_widget.dart';
+import 'package:ecommerce_app/features/products_screen/presentation/screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -88,7 +89,15 @@ class _HomeTabState extends State<HomeTab> {
             ),
             Column(
               children: [
-                CustomSectionBar(sectionNname: 'Categories', function: () {}),
+                CustomSectionBar(
+                    sectionNname: 'Categories',
+                    function: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProductsScreen()),
+                      );
+                    }),
                 BlocBuilder<CatogryCubit, CatogryState>(
                   builder: (context, state) {
                     if (state is CatogryLoading) {
