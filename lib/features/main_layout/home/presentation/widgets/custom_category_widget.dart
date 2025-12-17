@@ -29,7 +29,7 @@ class CustomCategoryWidget extends StatelessWidget {
             height: 100,
             width: 100,
             fit: BoxFit.cover,
-            imageUrl: categoryEntity.image ?? "",
+            imageUrl: categoryEntity.image,
             placeholder: (context, url) =>
                 const Center(child: CircularProgressIndicator()),
             errorWidget: (context, url, error) =>
