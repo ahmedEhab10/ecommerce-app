@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/core/resources/UI_Utils.dart';
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:ecommerce_app/core/widget/custom_elevated_button.dart';
+import 'package:ecommerce_app/features/cart/presentation/cubit/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/product_details/presentation/widgets/product_color.dart';
 import 'package:ecommerce_app/features/product_details/presentation/widgets/product_description.dart';
 
@@ -11,6 +13,7 @@ import 'package:ecommerce_app/features/product_details/presentation/widgets/prod
 import 'package:ecommerce_app/features/product_details/presentation/widgets/product_slider.dart';
 import 'package:ecommerce_app/features/products_screen/domain/Entities/Product_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -25,6 +28,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   int productCounter = 1;
   @override
   Widget build(BuildContext context) {
+    CartCubit cartCubit = BlocProvider.of<CartCubit>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -132,12 +136,27 @@ class _ProductDetailsState extends State<ProductDetails> {
                   width: 33.w,
                 ),
                 Expanded(
-                  child: CustomElevatedButton(
-                    label: 'Add to cart',
-                    onTap: () {},
-                    prefixIcon: Icon(
-                      Icons.add_shopping_cart_outlined,
-                      color: ColorManager.white,
+                  child: BlocListener<CartCubit, CartState>(
+                    listener: (context, state) {
+                      if (state is AddToCartLoading) {
+                        UIUtils.showLoading(context);
+                      } else if (state is AddToCartError) {
+                        UIUtils.hideDialog(context);
+                        UIUtils.showToastMessage(state.message, Colors.red);
+                      } else if (state is AddToCartSuccess) {
+                        UIUtils.hideDialog(context);
+                        UIUtils.showToastMessage("Product Added", Colors.green);
+                      }
+                    },
+                    child: CustomElevatedButton(
+                      label: 'Add to cart',
+                      onTap: () {
+                        cartCubit.addToCart(productId: widget.productEntity.id);
+                      },
+                      prefixIcon: Icon(
+                        Icons.add_shopping_cart_outlined,
+                        color: ColorManager.white,
+                      ),
                     ),
                   ),
                 )
