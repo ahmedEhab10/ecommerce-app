@@ -65,6 +65,7 @@ abstract class ApiConstants {
   static const String brands = 'brands';
   static const String products = 'products';
   static const String cartEndPoint = 'cart';
+  static const String favEndPoint = 'wishlist';
 }
 
 abstract class Cacheconstants {

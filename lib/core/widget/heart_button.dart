@@ -2,17 +2,14 @@ import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 
-class HeartButton extends StatefulWidget {
+class HeartButton extends StatelessWidget {
   final void Function()? onTap;
-  const HeartButton({super.key, required this.onTap});
+  HeartButton({super.key, required this.onTap, required this.isFav});
 
-  @override
-  State<HeartButton> createState() => _HeartButtonState();
-}
-
-class _HeartButtonState extends State<HeartButton> {
   String heartIcon = IconsAssets.icHeart;
-  bool isClicked = false;
+
+  final bool isFav;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -20,14 +17,7 @@ class _HeartButtonState extends State<HeartButton> {
       customBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      onTap: () {
-        setState(() {
-          isClicked = !isClicked;
-          heartIcon =
-              !isClicked ? IconsAssets.icHeart : IconsAssets.icClickedHeart;
-          widget.onTap?.call();
-        });
-      },
+      onTap: onTap,
       child: Material(
         // borderRadius: BorderRadius.circular(2),
         color: ColorManager.white,
@@ -37,8 +27,9 @@ class _HeartButtonState extends State<HeartButton> {
         child: Padding(
             padding: const EdgeInsets.all(6),
             child: ImageIcon(
-              
-              AssetImage(heartIcon),
+              AssetImage(
+                isFav ? IconsAssets.icClickedHeart : IconsAssets.icHeart,
+              ),
               color: ColorManager.primary,
             )),
       ),

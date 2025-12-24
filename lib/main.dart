@@ -14,6 +14,12 @@ import 'package:ecommerce_app/features/cart/doamin/Usecase/delete_product_from_c
 import 'package:ecommerce_app/features/cart/doamin/Usecase/get_cart_use_case.dart';
 import 'package:ecommerce_app/features/cart/doamin/Usecase/update_cart_product_quantity_use_case.dart';
 import 'package:ecommerce_app/features/cart/presentation/cubit/cubit/cart_cubit.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/data/data_source/Fav_api_remote_data_source.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/data/repositories_impl/Fav_repo_impl.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/domain/usecase/add_tofav_usecase.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/domain/usecase/delet_fromfav_usecase.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/domain/usecase/get_fav_list_usecase.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/presentation/cubit/cubit/fav_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,6 +67,25 @@ void main() {
             deleteProductFromCartUseCase: DeleteProductFromCartUseCase(
               cartRepository: CartRepositoryImpl(
                 remoteDataSource: CartApiRemoteDataSource(),
+              ),
+            ),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => FavCubit(
+            getFavListUseCase: GetFavListUseCase(
+              favRepository: FavRepoImpl(
+                favRemoteDataSource: FavAPiRemoteDataSource(),
+              ),
+            ),
+            addToFavUsecase: AddTofavUsecase(
+              favRepository: FavRepoImpl(
+                favRemoteDataSource: FavAPiRemoteDataSource(),
+              ),
+            ),
+            deletFromfavUsecase: DeletFromfavUsecase(
+              favRepository: FavRepoImpl(
+                favRemoteDataSource: FavAPiRemoteDataSource(),
               ),
             ),
           ),

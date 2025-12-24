@@ -22,6 +22,7 @@ class ProductItem extends StatelessWidget {
         alignment: Alignment.topRight,
         child: HeartButton(
           onTap: onTap,
+          isFav: false,
         ),
       ),
     );

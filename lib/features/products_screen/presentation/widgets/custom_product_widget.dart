@@ -2,9 +2,11 @@ import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:ecommerce_app/core/routes_manager/routes.dart';
 import 'package:ecommerce_app/core/widget/heart_button.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/presentation/cubit/cubit/fav_cubit.dart';
 import 'package:ecommerce_app/features/product_details/presentation/screen/product_details.dart';
 import 'package:ecommerce_app/features/products_screen/domain/Entities/Product_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProductWidget extends StatelessWidget {
@@ -102,9 +104,29 @@ class CustomProductWidget extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                      top: height * 0.01,
-                      right: width * 0.02,
-                      child: HeartButton(onTap: () {})),
+                    top: height * 0.01,
+                    right: width * 0.02,
+                    child: BlocBuilder<FavCubit, FavState>(
+                      builder: (context, state) {
+                        final favCubit = context.watch<FavCubit>();
+                        final isFav = favCubit.isFav(product.id);
+
+                        return HeartButton(
+                          isFav: isFav,
+                          onTap: () {
+                            if (isFav) {
+                              favCubit.deletFromFav(productId: product.id);
+                            } else {
+                              favCubit.addToFav(
+                                productId: product.id,
+                                product: product.toFavProductEntity(),
+                              );
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),

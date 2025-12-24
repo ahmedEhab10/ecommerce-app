@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/font_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:ecommerce_app/core/resources/values_manager.dart';
+import 'package:ecommerce_app/features/auth/data/data_sources/local/auth_shared_prefs_local_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -66,10 +69,17 @@ class ProfileTabState extends State<ProfileTab> {
                     color: ColorManager.primary, fontSize: FontSize.s18),
                 suffixIcon: IconButton(
                   icon: SvgPicture.asset(SvgAssets.edit),
-                  onPressed: () {
-                    setState(() {
-                      isFullNameReadOnly = false;
-                    });
+                  onPressed: () async {
+                    AuthSharedPrefsLocalDataSource
+                        authSharedPrefsLocalDataSource =
+                        AuthSharedPrefsLocalDataSource();
+                    String token =
+                        await authSharedPrefsLocalDataSource.getToken();
+                    log(token);
+
+                    // setState(() {
+                    //   isFullNameReadOnly = false;
+                    // });
                   },
                 ),
                 textInputType: TextInputType.text,

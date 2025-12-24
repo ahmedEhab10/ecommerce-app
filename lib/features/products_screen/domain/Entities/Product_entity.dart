@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/features/main_layout/favourite/data/Models/fav_product_data.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/domain/Entities/Fav_product_entity.dart';
 import 'package:ecommerce_app/features/main_layout/home/data/Models/Brand_ressponse/Brand.dart';
 import 'package:ecommerce_app/features/products_screen/data/Models/Product_ressponse.dart';
 
@@ -33,4 +35,15 @@ class ProductEntity {
       required this.category,
       required this.ratingsAverage,
       required this.priceAfterDiscount});
+
+  FavProductEntity toFavProductEntity() => FavProductEntity(
+        id: id,
+        title: title,
+        description: description,
+        image: imageCover,
+        price: price,
+        quantity: quantity,
+        imageCover: imageCover,
+        ratingsAverage: ratingsAverage,
+      );
 }
