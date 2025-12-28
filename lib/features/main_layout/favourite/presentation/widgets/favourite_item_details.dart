@@ -1,10 +1,9 @@
-import 'package:colornames/colornames.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/domain/Entities/Fav_product_entity.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/widgets/custom_txt_widget.dart';
-import 'package:ecommerce_app/features/products_screen/domain/Entities/Product_entity.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

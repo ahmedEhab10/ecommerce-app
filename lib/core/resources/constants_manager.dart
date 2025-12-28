@@ -62,6 +62,7 @@ abstract class ApiConstants {
   static const String register = 'auth/signup';
   static const String login = 'auth/signin';
   static const String category = 'categories';
+  static const String subcategories = 'subcategories';
   static const String brands = 'brands';
   static const String products = 'products';
   static const String cartEndPoint = 'cart';

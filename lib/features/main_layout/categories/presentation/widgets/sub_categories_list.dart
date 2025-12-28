@@ -1,56 +1,91 @@
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
-import 'package:ecommerce_app/core/resources/color_manager.dart';
-import 'package:ecommerce_app/core/resources/font_manager.dart';
-import 'package:ecommerce_app/core/resources/styles_manager.dart';
+
 import 'package:ecommerce_app/core/resources/values_manager.dart';
+import 'package:ecommerce_app/features/main_layout/categories/Data/Models/catogry_item_model.dart';
+import 'package:ecommerce_app/features/main_layout/categories/presentation/Cubit/cubit/suc_catogory_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/categories/presentation/widgets/category_card_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'sub_category_item.dart';
 
-class SubCategoriesList extends StatelessWidget {
+class SubCategoriesList extends StatefulWidget {
   const SubCategoriesList({super.key});
+
+  @override
+  State<SubCategoriesList> createState() => _SubCategoriesListState();
+}
+
+class _SubCategoriesListState extends State<SubCategoriesList> {
+  @override
+  void initState() {
+    super.initState();
+
+    final firstCategoryId = CatogryItemModel.listofcatogryItemModel.first.id;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context
+          .read<SucCatogoryCubit>()
+          .getSubCatogries(catogoryId: firstCategoryId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          // category title
-          SliverToBoxAdapter(
-            child: Text(
-              'Laptops & Electronics',
-              style: getBoldStyle(
-                  color: ColorManager.primary, fontSize: FontSize.s14),
-            ),
-          ),
-          // the category card
-          SliverToBoxAdapter(
-            child: CategoryCardItem("Laptops & Electronics",
-                ImageAssets.categoryCardImage, goToCategoryProductsListScreen),
-          ),
-          // the grid view of the subcategories
-          SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                childCount: 26,
-                (context, index) => SubCategoryItem(
-                    'Watches',
-                    ImageAssets.subcategoryCardImage,
-                    goToCategoryProductsListScreen),
+      child: BlocBuilder<SucCatogoryCubit, SucCatogoryState>(
+        builder: (context, state) {
+          if (state is SucCatogoryLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state is SucCatogoryFailure) {
+            return Center(
+              child: Text(
+                state.errorMessage,
+                style: const TextStyle(color: Colors.red),
               ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.75,
-                mainAxisSpacing: AppSize.s8,
-                crossAxisSpacing: AppSize.s8,
-              ))
-        ],
+            );
+          }
+
+          if (state is SucCatogorySuccess) {
+            final subCategories = state.subCatogoryEntityList;
+
+            return CustomScrollView(
+              slivers: [
+                SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: subCategories.length,
+                    (context, index) {
+                      final item = subCategories[index];
+                      return SubCategoryItem(
+                        item.name!,
+                        ImageAssets.subcategoryCardImage,
+                        goToCategoryProductsListScreen,
+                      );
+                    },
+                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.75,
+                    mainAxisSpacing: AppSize.s8,
+                    crossAxisSpacing: AppSize.s8,
+                  ),
+                ),
+              ],
+            );
+          }
+
+          return const SizedBox(
+            child: Text('a7aaa  '),
+          );
+        },
       ),
     );
   }
+}
 
-  void goToCategoryProductsListScreen() {
-    // todo implement this function
-  }
+void goToCategoryProductsListScreen() {
+  // todo implement this function
 }

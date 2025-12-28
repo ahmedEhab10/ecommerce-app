@@ -29,31 +29,31 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Cart',
-          style: getMediumStyle(fontSize: 20, color: ColorManager.textColor),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: ImageIcon(
-              AssetImage(
-                IconsAssets.icSearch,
-              ),
-              color: ColorManager.primary,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: ImageIcon(
-              AssetImage(IconsAssets.icCart),
-              color: ColorManager.primary,
-            ),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'Cart',
+      //     style: getMediumStyle(fontSize: 20, color: ColorManager.textColor),
+      //   ),
+      //   centerTitle: true,
+      //   actions: [
+      //     IconButton(
+      //       onPressed: () {},
+      //       icon: ImageIcon(
+      //         AssetImage(
+      //           IconsAssets.icSearch,
+      //         ),
+      //         color: ColorManager.primary,
+      //       ),
+      //     ),
+      //     IconButton(
+      //       onPressed: () {},
+      //       icon: ImageIcon(
+      //         AssetImage(IconsAssets.icCart),
+      //         color: ColorManager.primary,
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.p14),
         child: BlocConsumer<CartCubit, CartState>(

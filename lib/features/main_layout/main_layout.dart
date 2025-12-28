@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/widget/home_screen_app_bar.dart';
+import 'package:ecommerce_app/features/cart/presentation/screens/cart_screen.dart';
 import 'package:ecommerce_app/features/main_layout/categories/presentation/categories_tab.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/cubit/cubit/fav_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/favourite_screen.dart';
@@ -22,7 +23,7 @@ class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
   List<Widget> tabs = [
     const HomeTab(),
-    const CategoriesTab(),
+    const CartScreen(),
     const FavouriteScreen(),
     const ProfileTab(),
   ];
@@ -56,7 +57,7 @@ class _MainLayoutState extends State<MainLayout> {
               // Build BottomNavigationBarItem widgets for each tab
 
               CustomBottomNavBarItem(IconsAssets.icHome, "Home"),
-              CustomBottomNavBarItem(IconsAssets.icCategory, "Category"),
+              CustomBottomNavBarItem(IconsAssets.icCart, "Category"),
               CustomBottomNavBarItem(IconsAssets.icWithList, "WishList"),
               CustomBottomNavBarItem(IconsAssets.icProfile, "Profile"),
             ],
